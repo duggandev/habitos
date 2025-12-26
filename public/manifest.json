@@ -1,6 +1,6 @@
 {
   "name": "Hábitos",
-  "short_name": "abitos",
+  "short_name": "Hábitos",
   "description": "Aplicación para el seguimiento y desarrollo de hábitos",
   "start_url": "/",
   "display": "standalone",

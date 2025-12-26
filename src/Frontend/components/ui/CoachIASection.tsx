@@ -1,7 +1,7 @@
 import React from "react";
 import { Lightbulb, RotateCw, AlertCircle, Zap } from "lucide-react";
-import { useCoachIA } from "../hooks/useCoachIA";
 import ConsejoCard from "./ConsejoCard";
+import { useCoachIA } from "../../hooks/useCoachIA";
 
 const CoachIASection: React.FC = () => {
   const { consejos, loading, error, fecha, registrarInteraccion, recargarConsejos, actualizarConsejos } =

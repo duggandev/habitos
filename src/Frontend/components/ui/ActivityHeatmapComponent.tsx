@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { useActivityHeatmap } from "../hooks/useActivityHeatmap";
 import { Loader2 } from "lucide-react";
+import { useActivityHeatmap } from "../../hooks/useActivityHeatmap";
 
 const DAYS_OF_WEEK = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 

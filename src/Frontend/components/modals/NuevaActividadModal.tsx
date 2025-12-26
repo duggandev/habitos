@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BadgeInfo, ArrowLeft, LineChart, Lock, Loader2 } from "lucide-react";
-import { useHabits, HabitType } from "../layouts/state/HabitsContext";
-import { useSubscription } from "../layouts/state/SubscriptionContext";
+import { BadgeInfo, ArrowLeft, LineChart, Loader2 } from "lucide-react";
+import { HabitType, useHabits } from "../../layouts/state/HabitsContext";
+import { useSubscription } from "../../hooks/useSubscription";
 
 const NuevaActividadPage: React.FC = () => {
   const navigate = useNavigate();
@@ -148,15 +148,6 @@ const NuevaActividadPage: React.FC = () => {
               </div>
               <div className="text-gray-400 text-sm">Hábito a evitar</div>
             </button>
-          </div>
-        </div>
-
-        {/* Banner grupos (próximamente) */}
-        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-3 text-sm text-blue-200 flex items-start gap-2">
-          <Lock className="w-4 h-4 mt-0.5" />
-          <div>
-            <div className="font-medium">¡Hábitos grupales próximamente!</div>
-            <div>Pronto podrás crear y compartir hábitos con amigos y familia.</div>
           </div>
         </div>
 

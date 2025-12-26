@@ -9,7 +9,7 @@ import {
   ChevronDown,
   Loader,
 } from "lucide-react";
-import { Habito, HabitoDetalleResponse } from "../hooks/useHabitStats";
+import { Habito, HabitoDetalleResponse } from "../../hooks/useHabitStats";
 
 interface HabitTrendProps {
   habito: Habito;

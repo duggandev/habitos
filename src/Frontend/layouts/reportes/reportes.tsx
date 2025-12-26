@@ -4,9 +4,9 @@ import {
   TrendingUp,
   Activity,
 } from "lucide-react";
-import ActivityHeatmapComponent from "../../components/ActivityHeatmapComponent";
-import HabitTrendCard from "../../components/HabitTrendCard";
-import CoachIASection from "../../components/CoachIASection";
+import ActivityHeatmapComponent from "../../components/ui/ActivityHeatmapComponent";
+import HabitTrendCard from "../../components/habits/HabitTrendCard";
+import CoachIASection from "../../components/ui/CoachIASection";
 import { useHabitStats } from "../../hooks/useHabitStats";
 
 /* ---------- Página Reportes ---------- */

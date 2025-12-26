@@ -5,7 +5,7 @@ import {UserButton } from '@clerk/clerk-react';
 import { Search } from 'lucide-react';
 import { useSubscription } from './state/SubscriptionContext';
 import { useSearch } from '../hooks/useSearch';
-import SearchResultsDropdown from '../components/SearchResults';
+import SearchResultsDropdown from '../components/search/SearchResults';
 import SearchModal from '../components/search/SearchModal';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

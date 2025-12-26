@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
 import { Check, X, Loader2, Users, ArrowRight } from 'lucide-react';
-import { GrupoControl } from '../../Backend/Controlador/GrupoControl';
+import { GrupoControl } from '../../../Backend/Controlador/GrupoControl';
 
 interface Invitation {
   id: string;

@@ -2,12 +2,11 @@
 import { Suspense } from 'react';
 import { useAuth } from "@clerk/clerk-react";
 import AppRoutes from "./Frontend/routes/Routes";
-import ErrorBoundary from "./Frontend/components/ErrorBoundary";
+import ErrorBoundary from "./Frontend/components/Error/ErrorBoundary";
 
 export default function App() {
   const { isLoaded } = useAuth();
 
-  // Espera a que Clerk esté completamente cargado
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">

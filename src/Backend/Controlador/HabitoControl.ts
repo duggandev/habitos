@@ -3,7 +3,7 @@ import { HabitoDTO, HabitoRespuestaDTO } from '../Dto/HabitoDTO';
 import { GrupoInvitacionResponse } from '../Modelo/ApiModelos';
 
 interface RegistroHabito {
-    estado: 'success' | 'fail';
+    estado: 'exito' | 'fallo';
     comentario?: string;
 }
 
@@ -99,7 +99,7 @@ export class HabitoControl {
     async registrarProgreso(habitId: string, registro: RegistroHabito, token: string) {
         try {
             // Validaciones
-            if (!['success', 'fail'].includes(registro.estado)) {
+            if (!['exito', 'fallo'].includes(registro.estado)) {
                 throw new Error('Estado inválido');
             }
 

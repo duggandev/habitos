@@ -173,7 +173,7 @@ export const HabitsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (!token) throw new Error('No hay token de autenticación');
 
     const registro = {
-      estado: 'success' as const,
+      estado: 'exito' as const,
       comentario
     };
 
@@ -186,7 +186,7 @@ export const HabitsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (!token) throw new Error('No hay token de autenticación');
 
     const registro = {
-      estado: 'fail' as const,
+      estado: 'fallo' as const,
       comentario
     };
 

@@ -489,11 +489,10 @@ const Dashboard: React.FC = () => {
                   const totalHabitos = dia.total;
 
                   let estado: "success" | "partial" | "pending" | "failed" = "pending";
-                  if (habitosCompletados > 0) {
-                    estado = habitosCompletados === totalHabitos ? "success" : "partial";
-                  }
-                  if (habitosFallados > 0 && habitosCompletados === 0) {
+                  if (habitosFallados > 0) {
                     estado = "failed";
+                  } else if (habitosCompletados > 0) {
+                    estado = habitosCompletados === totalHabitos ? "success" : "partial";
                   }
 
                   return (
@@ -541,7 +540,7 @@ const Dashboard: React.FC = () => {
 
                         <div className="mt-1 text-xs">
                           {estado === "success" && <span className="text-emerald-400">¡Completado!</span>}
-                          {estado === "partial" && <span className="text-orange-400">En progreso</span>}
+                          {estado === "partial" && <span className="text-orange-400">{dia.pendientes === 0 ? "Completado parcialmente" : "En progreso"}</span>}
                           {estado === "failed" && <span className="text-red-400">Con fallos</span>}
                           {estado === "pending" && <span className="text-gray-400">Pendiente</span>}
                         </div>

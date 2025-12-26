@@ -10,7 +10,7 @@ import { FAQ } from "../../landing/FAQ";
 import { Footer } from "../../landing/Footer";
 import { Auth } from "../../Frontend/pages/Auth";
 import ErrorView from "../components/Error/ErrorView";
-import ClearCache from "../components/ClearCache";
+import ClearCache from "../components/ui/ClearCache";
 
 import MainLayout from "../layouts/MainLayout";
 import Inicio from "../layouts/inicio/inicio";
@@ -19,10 +19,10 @@ import Reportes from "../layouts/reportes/reportes";
 import Beneficios from "../layouts/beneficios/beneficios";
 import SettingsPage from "../layouts/ajustes/ajustes";
 
-import NuevaActividadModal from "../components/NuevaActividadModal";
-import NuevoHabitoGrupal from "../components/NuevoHabitoGrupal";
-import JoinGroupInvitation from "../components/JoinGroupInvitation";
-import HabitoGrupalDetalle from "../components/HabitoGrupalDetalle";
+import NuevaActividadModal from "../components/modals/NuevaActividadModal";
+import NuevoHabitoGrupal from "../components/modals/NuevoHabitoGrupal";
+import JoinGroupInvitation from "../components/modals/JoinGroupInvitation";
+import HabitoGrupalDetalle from "../components/habits/HabitoGrupalDetalle";
 import GrupoDetalle from "../pages/grupos/GrupoDetalle";
 import GruposPage from "../pages/grupos/GruposPage";
 import { HabitsProvider } from "../layouts/state/HabitsContext";
@@ -116,7 +116,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="*"
         element={
           isSignedIn ? (
             <ProtectedLayout>
@@ -130,7 +130,7 @@ const AppRoutes = () => {
 
       {/* Home (lista) */}
       <Route
-        path="/home"
+        path="/home/*"
         element={
           <ProtectedLayout>
             <Inicio />
@@ -170,7 +170,7 @@ const AppRoutes = () => {
 
       {/* Otras secciones protegidas */}
       <Route
-        path="/dashboard"
+        path="/dashboard/*"
         element={
           <ProtectedLayout>
             <Dashboard />

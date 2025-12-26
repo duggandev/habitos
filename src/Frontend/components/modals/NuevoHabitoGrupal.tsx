@@ -1,9 +1,9 @@
 import React from 'react';
 import { Loader2, Users, PlusCircle, Mail, ArrowLeft, ArrowRight, Check, Edit, Trash2, AlertTriangle } from 'lucide-react';
-import { useHabits } from '../layouts/state/HabitsContext';
-import { GrupoControl } from '../../Backend/Controlador/GrupoControl';
 import { useAuth } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
+import { useHabits } from '../../layouts/state/HabitsContext';
+import { GrupoControl } from '../../../Backend/Controlador/GrupoControl';
 
 interface NuevoHabitoGrupalProps {
   onSuccess: () => void;
@@ -179,13 +179,6 @@ const NuevoHabitoGrupal: React.FC<NuevoHabitoGrupalProps> = ({
         throw new Error('El correo electrónico no es válido');
       }
 
-      const invitacionData = {
-        correo: correoInvitado,
-        rol: rolInvitado
-      };
-
-      const response = await grupoControl.invitarUsuario(grupoActual.id, invitacionData, token);
-
       // Agregar el email a la lista de invitaciones enviadas
       setInvitaciones(prev => [...prev, correoInvitado]);
       setCorreoInvitado('');
@@ -231,14 +224,6 @@ const NuevoHabitoGrupal: React.FC<NuevoHabitoGrupalProps> = ({
       if (correosInvalidos.length > 0) {
         throw new Error(`Correos inválidos: ${correosInvalidos.join(', ')}`);
       }
-
-      // Crear array de invitaciones
-      const invitaciones = correos.map(correo => ({
-        correo,
-        rol: rolInvitado as 'miembro' | 'administrador'
-      }));
-
-      const response = await grupoControl.invitarUsuariosLote(grupoActual.id, invitaciones, token);
 
       // Agregar los emails a la lista de invitaciones enviadas
       setInvitaciones(prev => [...prev, ...correos]);

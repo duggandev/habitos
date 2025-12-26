@@ -20,8 +20,8 @@ import {
   Search,
   Settings
 } from 'lucide-react';
-import { HabitoControl } from '../../Backend/Controlador/HabitoControl';
-import { GrupoControl } from '../../Backend/Controlador/GrupoControl';
+import { HabitoControl } from '../../../Backend/Controlador/HabitoControl';
+import { GrupoControl } from '../../../Backend/Controlador/GrupoControl';
 
 // Interface para invitaciones
 interface InvitacionPendiente {
@@ -1003,7 +1003,7 @@ const HabitoGrupalDetalle: React.FC = () => {
                     {miembro.progreso.registros_recientes.map((registro, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-xs">
                         <span className="text-gray-400">{new Date(registro.fecha).toLocaleDateString()}</span>
-                        {registro.estado === 'exito' || registro.estado === 'success' ? (
+                        {registro.estado === 'exito' ? (
                           <span className="flex items-center gap-1 text-emerald-400">
                             <CheckCircle className="h-3 w-3" />
                             Completado

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Consejo } from "../hooks/useCoachIA";
+import { Consejo } from "../../hooks/useCoachIA";
 
 interface ConsejoCardProps {
   consejo: Consejo;

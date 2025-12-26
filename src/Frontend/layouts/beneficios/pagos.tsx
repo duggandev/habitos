@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Upload, Loader2 } from "lucide-react";
-import { CuponExitoso } from "../../components/CuponExitoso";
+import { CuponExitoso } from "../../components/ui/CuponExitoso";
 import { useAuth } from "@clerk/clerk-react";
 import { PagoControl } from "../../../Backend/Controlador/PagoControl";
 import { PlanControl } from "../../../Backend/Controlador/PlanControl";

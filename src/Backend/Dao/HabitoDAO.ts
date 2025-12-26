@@ -23,7 +23,7 @@ interface HabitoConRachas extends HabitoRespuestaDTO {
 }
 
 interface RegistroHabito {
-    estado: 'success' | 'fail';
+    estado: 'exito' | 'fallo';
     comentario?: string;
 }
 
