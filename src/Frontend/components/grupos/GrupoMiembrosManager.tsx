@@ -76,13 +76,6 @@ const GrupoMiembrosManager: React.FC<GrupoMiembrosManagerProps> = ({ grupoId, on
         return;
       }
 
-      const invitacionData = {
-        correo: inviteEmail,
-        rol: inviteRole
-      };
-
-      const response = await grupoControl.invitarUsuario(grupoId, invitacionData, authToken);
-
       setInviteSuccess(`Invitación enviada a ${inviteEmail} con éxito`);
       setInviteEmail('');
       setInviteRole('miembro');

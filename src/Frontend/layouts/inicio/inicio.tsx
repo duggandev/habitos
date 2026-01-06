@@ -19,6 +19,7 @@ import { useHabits, Habit as HabitBase } from "../state/HabitsContext";
 import NuevoRegistroHabito from "../../components/modals/NuevoRegistroHabito";
 import StreakAnimation from "../../components/ui/StreakAnimation";
 import EditarHabitoModal from "../../components/modals/EditarHabitoModal";
+import IASuggestionsModal from "../../components/modals/IASuggestionsModal";
 import { useSubscription } from "../state/SubscriptionContext";
 
 type HabitType = "hacer" | "dejar" | "grupal";
@@ -563,8 +564,9 @@ const Inicio: React.FC = () => {
 
       if (result.success) {
         setBulkSuccess(result.message);
-        // Refrescar hábitos después de un delay
+        // Cerrar modal y refrescar después de mostrar la confirmación
         setTimeout(() => {
+          resetIAModal();
           window.location.reload(); // O usar el contexto para refrescar
         }, 2000);
       } else {
@@ -731,164 +733,22 @@ const Inicio: React.FC = () => {
         }}
       />
 
-      {/* Modal de Sugerencias IA */}
-      {isIAModalOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-          <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            <div className="p-6 border-b border-white/10">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="h-6 w-6 text-purple-400" />
-                  <h3 className="text-xl font-semibold text-white">Sugerencias de Hábitos con IA</h3>
-                </div>
-                <button
-                  onClick={resetIAModal}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {!iaSuggestions ? (
-                <>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      ¿Cuál es la meta que quieres lograr ahora mismo?
-                    </label>
-                    <input
-                      type="text"
-                      value={iaInput}
-                      onChange={(e) => setIaInput(e.target.value)}
-                      placeholder="Ej: bajar 10 kg, mejorar mi salud, ser más productivo..."
-                      className="w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      onKeyPress={(e) => e.key === 'Enter' && handleIASuggestions()}
-                    />
-                  </div>
-
-                  {iaError && (
-                    <div className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">
-                      {iaError}
-                    </div>
-                  )}
-
-                  <div className="flex justify-end">
-                    <button
-                      onClick={handleIASuggestions}
-                      disabled={iaLoading || !iaInput.trim()}
-                      className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {iaLoading ? (
-                        <>
-                          <div className="animate-spin h-4 w-4 border-2 border-white rounded-full border-t-transparent"></div>
-                          Generando...
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="h-4 w-4" />
-                          Obtener Sugerencias
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="space-y-6">
-                  <div className="text-center">
-                    <p className="text-gray-300 mb-2">Meta: <span className="text-white font-medium">{iaInput}</span></p>
-                    <button
-                      onClick={() => setIaSuggestions(null)}
-                      className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
-                    >
-                      ← Cambiar meta
-                    </button>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <h4 className="text-lg font-semibold text-red-400 flex items-center gap-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                        Hábitos para Dejar
-                      </h4>
-                      <ul className="space-y-2">
-                        {iaSuggestions.dejar.map((sugerencia, index) => (
-                          <li key={index} className="flex items-start gap-3 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                            <input
-                              type="checkbox"
-                              checked={selectedHabits.dejar[index] || false}
-                              onChange={(e) => {
-                                const newSelected = { ...selectedHabits };
-                                newSelected.dejar[index] = e.target.checked;
-                                setSelectedHabits(newSelected);
-                              }}
-                              className="mt-0.5 text-red-400 focus:ring-red-500"
-                            />
-                            <span className="text-gray-300 text-sm">{sugerencia}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="space-y-3">
-                      <h4 className="text-lg font-semibold text-emerald-400 flex items-center gap-2">
-                        <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                        Hábitos para Hacer
-                      </h4>
-                      <ul className="space-y-2">
-                        {iaSuggestions.hacer.map((sugerencia, index) => (
-                          <li key={index} className="flex items-start gap-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
-                            <input
-                              type="checkbox"
-                              checked={selectedHabits.hacer[index] || false}
-                              onChange={(e) => {
-                                const newSelected = { ...selectedHabits };
-                                newSelected.hacer[index] = e.target.checked;
-                                setSelectedHabits(newSelected);
-                              }}
-                              className="mt-0.5 text-emerald-400 focus:ring-emerald-500"
-                            />
-                            <span className="text-gray-300 text-sm">{sugerencia}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {bulkSuccess && (
-                    <div className="text-emerald-400 text-sm bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3">
-                      {bulkSuccess}
-                    </div>
-                  )}
-
-                  <div className="flex justify-between items-center pt-4 border-t border-white/10">
-                    <p className="text-sm text-gray-400">
-                      Selecciona los hábitos que quieres agregar
-                    </p>
-                    <button
-                      onClick={handleBulkRegister}
-                      disabled={bulkLoading || (selectedHabits.hacer.filter(Boolean).length === 0 && selectedHabits.dejar.filter(Boolean).length === 0)}
-                      className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {bulkLoading ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                          Registrando...
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="h-4 w-4" />
-                          Registrar Seleccionados
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <IASuggestionsModal
+        isOpen={isIAModalOpen}
+        onClose={() => setIsIAModalOpen(false)}
+        iaInput={iaInput}
+        setIaInput={setIaInput}
+        iaLoading={iaLoading}
+        iaSuggestions={iaSuggestions}
+        iaError={iaError}
+        selectedHabits={selectedHabits}
+        setSelectedHabits={setSelectedHabits}
+        bulkLoading={bulkLoading}
+        bulkSuccess={bulkSuccess}
+        onGenerateSuggestions={handleIASuggestions}
+        onBulkRegister={handleBulkRegister}
+        onReset={resetIAModal}
+      />
     </div>
   );
 };
