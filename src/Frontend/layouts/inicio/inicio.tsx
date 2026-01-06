@@ -623,7 +623,6 @@ const Inicio: React.FC = () => {
               ) : (
                 <Users className="h-5 w-5" />
               )}
-              Grupal
               {!isPremium && <Lock className="h-4 w-4" />}
               {!isPremium && (
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 bg-gray-800 text-gray-300 text-xs py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
@@ -641,7 +640,6 @@ const Inicio: React.FC = () => {
               ) : (
                 <Plus className="h-5 w-5" />
               )}
-              Nuevo
             </button>
             <button
               onClick={() => setIsIAModalOpen(true)}
@@ -649,7 +647,6 @@ const Inicio: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-4 py-2 font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
             >
               <Sparkles className="h-5 w-5" />
-              IA Sugerencias
             </button>
           </div>
         </div>
