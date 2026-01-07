@@ -14,6 +14,7 @@ import {
   Edit,
   Users,
   Sparkles,
+  RefreshCw,
 } from "lucide-react";
 import { useHabits, Habit as HabitBase } from "../state/HabitsContext";
 import NuevoRegistroHabito from "../../components/modals/NuevoRegistroHabito";
@@ -384,9 +385,11 @@ const HabitCard = ({
 const EmptyState = ({
   isLoading = false,
   error = null,
+  onRetry,
 }: {
   isLoading?: boolean;
   error?: string | null;
+  onRetry?: () => void;
 }) => (
   <div className="col-span-full rounded-2xl border border-white/10 bg-gray-900/40 p-10 text-center">
     <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white">
@@ -408,6 +411,15 @@ const EmptyState = ({
        !isLoading ? "Crea tu primer hábito con el botón verde de la esquina." :
        "Por favor espera mientras cargamos tus hábitos."}
     </p>
+    {error && onRetry && (
+      <button
+        onClick={onRetry}
+        className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700"
+      >
+        <RefreshCw className="h-4 w-4" />
+        Reintentar
+      </button>
+    )}
   </div>
 );
 
@@ -447,7 +459,7 @@ const TabsPill = ({
 const Inicio: React.FC = () => {
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
-  const { habits, markDone, markFail, removeHabit, editHabit, isLoading, error } = useHabits();
+  const { habits, markDone, markFail, removeHabit, editHabit, isLoading, error, refetchHabits } = useHabits();
   const { subscription } = useSubscription();
 
   const [habitToDelete, setHabitToDelete] = React.useState<Habit | null>(null);
@@ -648,6 +660,15 @@ const Inicio: React.FC = () => {
             >
               <Sparkles className="h-5 w-5" />
             </button>
+            {error && (
+              <button
+                onClick={refetchHabits}
+                disabled={isLoading}
+                className="inline-flex items-center gap-2 rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 font-semibold text-white disabled:opacity-50"
+              >
+                <RefreshCw className="h-5 w-5" />
+              </button>
+            )}
           </div>
         </div>
         
@@ -692,7 +713,7 @@ const Inicio: React.FC = () => {
             ))}
           </>
         ) : error ? (
-          <EmptyState error={error} />
+          <EmptyState error={error} onRetry={refetchHabits} />
         ) : filtered.length === 0 ? (
           <EmptyState />
         ) : (
